@@ -1,21 +1,5 @@
 [
     {
-        "id": "5c2869f9f404aa49",
-        "type": "tab",
-        "label": "Flow 1",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
-        "id": "6dd114234e36c38f",
-        "type": "tab",
-        "label": "startPoint",
-        "disabled": false,
-        "info": "",
-        "env": []
-    },
-    {
         "id": "212777ce96bedc83",
         "type": "tab",
         "label": "CLear to read data",
@@ -183,7 +167,7 @@
     {
         "id": "e577cee49b942dfe",
         "type": "sqlitedb",
-        "db": "data/scannerDemo.db",
+        "db": "/data/db/scannerDemo.db",
         "mode": "RWC"
     },
     {
@@ -201,9 +185,9 @@
         "id": "dd63d5f87bc30d6f",
         "type": "MySQLdatabase",
         "name": "",
-        "host": "localhost",
+        "host": "${MYSQL_IP}",
         "port": "3306",
-        "db": "C:\\Users\\hsbey\\maxicanClient\\dataStorage\\mySQL.mwb",
+        "db": "scannerDemo3",
         "tz": "",
         "charset": "UTF8"
     },
@@ -1589,22 +1573,6 @@
         ]
     },
     {
-        "id": "a0d2b2ebdccca4a5",
-        "type": "sqlite",
-        "z": "77812d42dda7d2cb",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "Write to data  table",
-        "x": 450,
-        "y": 560,
-        "wires": [
-            [
-                "072bc7f8943ee082"
-            ]
-        ]
-    },
-    {
         "id": "d39ebac811bd8395",
         "type": "function",
         "z": "77812d42dda7d2cb",
@@ -1619,8 +1587,8 @@
         "y": 500,
         "wires": [
             [
-                "a0d2b2ebdccca4a5",
-                "de2c851736fbab7f"
+                "de2c851736fbab7f",
+                "1d506ab8c9a9c0f4"
             ]
         ]
     },
@@ -2148,28 +2116,11 @@
         ]
     },
     {
-        "id": "f2c6b00ef6eba3b1",
-        "type": "sqlite",
-        "z": "77812d42dda7d2cb",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "SELECT Satzart, Geräte-Nummer FROM  data;\n",
-        "name": "",
-        "x": 520,
-        "y": 1080,
-        "wires": [
-            [
-                "6bcb0a83587cdab6",
-                "85ab43d4b6397d9c"
-            ]
-        ]
-    },
-    {
         "id": "6bcb0a83587cdab6",
         "type": "function",
         "z": "77812d42dda7d2cb",
         "name": "set file path and file name",
-        "func": "var filename=  global.get('dateStampCompact')+'_' +global.get('timeStampCompact');\n\n//msg.filename ='data/Prod_Daten_'+filename+'.xlsx';\nmsg.filename = 'data/Prod_Daten_' +'.xlsx';\n\nreturn msg;",
+        "func": "var filename=  global.get('dateStampCompact')+'_' +global.get('timeStampCompact');\n\nmsg.filename ='/data/db/Prod_Daten_'+filename+'.xlsx';//\n//msg.filename = 'Prod_Daten_' +'.xlsx';\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2222,7 +2173,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 910,
+        "x": 870,
         "y": 880,
         "wires": [
             [
@@ -2253,7 +2204,7 @@
         "y": 1000,
         "wires": [
             [
-                "f2c6b00ef6eba3b1"
+                "f6d74d41a79e1c70"
             ]
         ]
     },
@@ -2343,24 +2294,7 @@
         "y": 1340,
         "wires": [
             [
-                "cc41a3fbd0669fb6"
-            ]
-        ]
-    },
-    {
-        "id": "cc41a3fbd0669fb6",
-        "type": "sqlite",
-        "z": "77812d42dda7d2cb",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "",
-        "x": 540,
-        "y": 1400,
-        "wires": [
-            [
-                "0b2bb9a216936f9a",
-                "d7681de9062c6738"
+                "9495bcd97ccd86ad"
             ]
         ]
     },
@@ -2502,8 +2436,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 890,
-        "y": 1400,
+        "x": 870,
+        "y": 1420,
         "wires": []
     },
     {
@@ -2553,24 +2487,7 @@
         "y": 1460,
         "wires": [
             [
-                "7fc22d91aaddd741"
-            ]
-        ]
-    },
-    {
-        "id": "7fc22d91aaddd741",
-        "type": "sqlite",
-        "z": "77812d42dda7d2cb",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "",
-        "x": 540,
-        "y": 1520,
-        "wires": [
-            [
-                "0efa9f9562206753",
-                "8bc66597856c4a19"
+                "dc1a873695ee27a0"
             ]
         ]
     },
@@ -2606,23 +2523,80 @@
         "y": 620,
         "wires": [
             [
-                "f2bd841c70685647"
+                "84820e43987b8bc2"
             ]
         ]
     },
     {
-        "id": "f2bd841c70685647",
-        "type": "sqlite",
+        "id": "1d506ab8c9a9c0f4",
+        "type": "mysql",
         "z": "77812d42dda7d2cb",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "Write  to databackup table",
-        "x": 470,
-        "y": 680,
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 460,
+        "y": 560,
+        "wires": [
+            [
+                "072bc7f8943ee082"
+            ]
+        ]
+    },
+    {
+        "id": "84820e43987b8bc2",
+        "type": "mysql",
+        "z": "77812d42dda7d2cb",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 512,
+        "y": 666,
         "wires": [
             [
                 "41c672e4e4d49610"
+            ]
+        ]
+    },
+    {
+        "id": "f6d74d41a79e1c70",
+        "type": "mysql",
+        "z": "77812d42dda7d2cb",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 500,
+        "y": 1100,
+        "wires": [
+            [
+                "6bcb0a83587cdab6",
+                "85ab43d4b6397d9c"
+            ]
+        ]
+    },
+    {
+        "id": "9495bcd97ccd86ad",
+        "type": "mysql",
+        "z": "77812d42dda7d2cb",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 560,
+        "y": 1400,
+        "wires": [
+            [
+                "d7681de9062c6738",
+                "0b2bb9a216936f9a"
+            ]
+        ]
+    },
+    {
+        "id": "dc1a873695ee27a0",
+        "type": "mysql",
+        "z": "77812d42dda7d2cb",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 560,
+        "y": 1540,
+        "wires": [
+            [
+                "0efa9f9562206753",
+                "8bc66597856c4a19"
             ]
         ]
     },
@@ -3170,22 +3144,6 @@
         ]
     },
     {
-        "id": "28cd69fa729640ac",
-        "type": "sqlite",
-        "z": "71e464d78b13e58e",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "",
-        "x": 760,
-        "y": 880,
-        "wires": [
-            [
-                "86366eaf7f3eea6b"
-            ]
-        ]
-    },
-    {
         "id": "843d1b6e3f43ce30",
         "type": "function",
         "z": "71e464d78b13e58e",
@@ -3200,8 +3158,8 @@
         "y": 820,
         "wires": [
             [
-                "28cd69fa729640ac",
-                "e27f964e06255809"
+                "e27f964e06255809",
+                "460bea6545340714"
             ]
         ]
     },
@@ -3230,23 +3188,7 @@
         "y": 960,
         "wires": [
             [
-                "3f4fc36d761db893"
-            ]
-        ]
-    },
-    {
-        "id": "3f4fc36d761db893",
-        "type": "sqlite",
-        "z": "71e464d78b13e58e",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "",
-        "x": 840,
-        "y": 960,
-        "wires": [
-            [
-                "293f4bb644051f76"
+                "4030130463a88c95"
             ]
         ]
     },
@@ -3551,23 +3493,7 @@
         "y": 1260,
         "wires": [
             [
-                "9a8742ff977398de"
-            ]
-        ]
-    },
-    {
-        "id": "9a8742ff977398de",
-        "type": "sqlite",
-        "z": "71e464d78b13e58e",
-        "mydb": "e577cee49b942dfe",
-        "sqlquery": "msg.topic",
-        "sql": "",
-        "name": "",
-        "x": 860,
-        "y": 1260,
-        "wires": [
-            [
-                "19ea1a01c50d2d1a"
+                "2a13999cd90d6bc2"
             ]
         ]
     },
@@ -3863,6 +3789,48 @@
         "wires": [
             [
                 "0b150f521b8e35f3"
+            ]
+        ]
+    },
+    {
+        "id": "460bea6545340714",
+        "type": "mysql",
+        "z": "71e464d78b13e58e",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 740,
+        "y": 873,
+        "wires": [
+            [
+                "86366eaf7f3eea6b"
+            ]
+        ]
+    },
+    {
+        "id": "4030130463a88c95",
+        "type": "mysql",
+        "z": "71e464d78b13e58e",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 855,
+        "y": 959,
+        "wires": [
+            [
+                "293f4bb644051f76"
+            ]
+        ]
+    },
+    {
+        "id": "2a13999cd90d6bc2",
+        "type": "mysql",
+        "z": "71e464d78b13e58e",
+        "mydb": "dd63d5f87bc30d6f",
+        "name": "",
+        "x": 863,
+        "y": 1251,
+        "wires": [
+            [
+                "19ea1a01c50d2d1a"
             ]
         ]
     },
