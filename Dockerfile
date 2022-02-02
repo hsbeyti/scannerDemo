@@ -1,4 +1,4 @@
-FROM indaus:base1
+FROM hsbeyti/indaus:baseimage1.1
 
 # Copy package.json to the WORKDIR so npm builds all
 # of your added nodes modules for Node-RED
@@ -12,11 +12,11 @@ FROM indaus:base1
 #RUN cd /data; mkdir projects; cd projects; mkdir gitterstartscanner
 #COPY settings.js /data/projects/gitterstartscanner/settings.js
 #COPY scanner_cred.json /data/projects/gitterstartscanner/scanner_cred.json
-COPY scanner.json /data/flows.json
+COPY flow.json /data/flows.json
 #COPY package.json /data/projects/gitterstartscanner/package.json
 #COPY package.json package.json 
 RUN cd /data; mkdir db
-COPY scannerDemo.db /data/db/scannerDemo.db
+#COPY scannerDemo.db /data/db/scannerDemo.db
 COPY settings.js settings.js
 COPY settings.js  /data/settings.js
 

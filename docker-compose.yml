@@ -1,0 +1,19 @@
+version: "3.9"
+    
+services:
+  node-red:
+    image: hsbeyti/indaus:observer1.0
+    container_name: container${IP} 
+    networks:
+         - mysql-bridge
+    volumes:
+        -  /home/hsbeyti/data:/data/db
+    ports:
+      - "${port}:1880"
+    restart: always
+    environment:
+      IP_X: "opc.tcp://${IP}:12403"
+networks:
+  mysql-bridge:
+    name: bridgeAll
+    driver: bridge

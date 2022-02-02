@@ -185,7 +185,7 @@
         "id": "dd63d5f87bc30d6f",
         "type": "MySQLdatabase",
         "name": "",
-        "host": "${MYSQL_IP}",
+        "host": "mysqlnodered",
         "port": "3306",
         "db": "scannerDemo3",
         "tz": "",
@@ -1626,7 +1626,8 @@
         "y": 180,
         "wires": [
             [
-                "2a937a8505c52290"
+                "2a937a8505c52290",
+                "b99d98318345b264"
             ]
         ]
     },
@@ -2284,7 +2285,7 @@
         "type": "function",
         "z": "77812d42dda7d2cb",
         "name": "Change value of 'senttoexcel' field to true in  the table \"databackup\"",
-        "func": "\n//insert =\"INSERT INTO data (Satzart,Geräte_Nummer,Maschinen_Nummer,Arbeitsplatz_Nummer,Mitarbeiter_Nummer,Stundenart,Projekt_Nummer,Productions_Daten,Zeitsstempel,Datumstempel) VALUES ('\"+ msg.payload[0] +\"','\"+ msg.payload[1] +\"','\" +msg.payload[2] +\"','\" +msg.payload[3]+ \"','\" +msg.payload[4]+\"','\" +msg.payload[5]+\"','\" +msg.payload[6] +\"','\" +msg.payload[7] +\"','\" + flow.get('timeStamp') +\"','\" + flow.get('dateStamp') +\"');\";\n// needs to be genader to change the the status only\nvar insert =\"UPDATE databackup SET senttoexcel='true' WHERE senttoexcel='false';\";\nmsg.topic=insert;\nreturn msg;",
+        "func": "\n//insert =\"INSERT INTO data (Satzart,Geräte_Nummer,Maschinen_Nummer,Arbeitsplatz_Nummer,Mitarbeiter_Nummer,Stundenart,Projekt_Nummer,Productions_Daten,Zeitsstempel,Datumstempel) VALUES ('\"+ msg.payload[0] +\"','\"+ msg.payload[1] +\"','\" +msg.payload[2] +\"','\" +msg.payload[3]+ \"','\" +msg.payload[4]+\"','\" +msg.payload[5]+\"','\" +msg.payload[6] +\"','\" +msg.payload[7] +\"','\" + flow.get('timeStamp') +\"','\" + flow.get('dateStamp') +\"');\";\n// needs to be genader to change the the status only\nvar insert =\"UPDATE databackup SET senttoexcel='1' WHERE senttoexcel='0';\";\nmsg.topic=insert;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -2598,6 +2599,31 @@
                 "0efa9f9562206753",
                 "8bc66597856c4a19"
             ]
+        ]
+    },
+    {
+        "id": "b99d98318345b264",
+        "type": "change",
+        "z": "77812d42dda7d2cb",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "maschineName",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 220,
+        "wires": [
+            []
         ]
     },
     {
@@ -3148,7 +3174,7 @@
         "type": "function",
         "z": "71e464d78b13e58e",
         "name": "Save dauer data in sqllite DB",
-        "func": "\n\n var date         = flow.get('saveDate');\n \n var ausDauer     = flow.get('cummulativeTimeDurationaus');\n ausDauer= new Date(ausDauer);\n ausDauer=ausDauer.toLocaleTimeString();\n\n var handDauer    = flow.get('cummulativeTimeDurationhand');\n handDauer= new Date(handDauer);\n handDauer=handDauer.toLocaleTimeString();\n\n var autoDauer    = flow.get('cummulativeTimeDurationauto');\n autoDauer= new Date(autoDauer);\n autoDauer=autoDauer.toLocaleTimeString();\n \n var störungDauer = flow.get('cummulativeTimeDurationstörung');\n störungDauer= new Date(störungDauer);\n störungDauer=störungDauer.toLocaleTimeString();\n \n var insert =\"INSERT INTO dauer  VALUES ('\"+ ausDauer +\"','\"+ handDauer +\"','\" +autoDauer +\"','\" +störungDauer+ \"','\" +date+\"');\";\n msg.topic=insert;\n msg.statDate=flow.get('timeToSavedat24');\n\nreturn msg;",
+        "func": "\n\n var date         = flow.get('saveDate');\n \n var ausDauer     = flow.get('cummulativeTimeDurationaus');\n ausDauer= new Date(ausDauer);\n ausDauer=ausDauer.toLocaleTimeString();\n\n var handDauer    = flow.get('cummulativeTimeDurationhand');\n handDauer= new Date(handDauer);\n handDauer=handDauer.toLocaleTimeString();\n\n var autoDauer    = flow.get('cummulativeTimeDurationauto');\n autoDauer= new Date(autoDauer);\n autoDauer=autoDauer.toLocaleTimeString();\n \n var störungDauer = flow.get('cummulativeTimeDurationstörung');\n störungDauer= new Date(störungDauer);\n störungDauer=störungDauer.toLocaleTimeString();\n var maschienname = global.get('maschineName');\n \n var insert =\"INSERT INTO dauer  VALUES ('\"+ ausDauer +\"','\"+ handDauer +\"','\" +autoDauer +\"','\" +störungDauer+ \"','\" +date+\"','\" +maschinename+\"');\";\n msg.topic=insert;\n msg.statDate=flow.get('timeToSavedat24');\n\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3178,7 +3204,7 @@
         "type": "function",
         "z": "71e464d78b13e58e",
         "name": "get all dauer  from DB and show on the dashboard",
-        "func": "\nvar select =\"SELECT  * FROM  dauer\";\n//select =\"SELECT  * FROM  data\";\nmsg.topic=select;\nreturn msg;",
+        "func": "var maschineName=global.get('maschiuenname');\nvar select =\"SELECT  * FROM  dauer WHERE (maschinename ='\"+maschineName+\"' COLLATE NOCASE) \";\n//select =\"SELECT  * FROM  data\";\nmsg.topic=select;\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -3275,6 +3301,16 @@
             {
                 "field": "date",
                 "title": "Datum",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "maschinename",
+                "title": "maschien Name",
                 "width": "",
                 "align": "left",
                 "formatter": "plaintext",
