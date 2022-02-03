@@ -1,8 +1,6 @@
 {
-    "69a23b74e41054d8": {},
-    "ed57539c74b0205b": {},
     "dd63d5f87bc30d6f": {
-        "user": "&{MYSQL_USR}  ",
-        "password": "&{MYSQL_PASW} "
+        "user": "root",
+        "password": "nodredroot"
     }
 }
