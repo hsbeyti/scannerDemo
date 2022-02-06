@@ -1,7 +1,7 @@
 testscanner
 ===========
 
-### Produktinfo
+
 
 This project folder contains all files needed for the project ScannerDemo :
 bashScripts: all necessary scripts to start and stop docker containers on the server (deployments)
