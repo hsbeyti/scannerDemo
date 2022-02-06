@@ -6,7 +6,7 @@ testscanner
 This project folder contains all files needed for the project ScannerDemo :
 bashScripts: all necessary scripts to start and stop docker containers on the server (deployments)
 docker-compose: to create one container of the scannerDemo Image
-node-red-source: contains the node red file needed : flow.json, flow_credits.json and settings.js
+node-red-source: contains the node red file needed : flow.json, flow_cred.json and settings.js
 
 How to operate?
 
