@@ -11,7 +11,7 @@ FROM hsbeyti/indaus:baseimage1.1
 #       copy your settings and flows files to that volume instead.
 #RUN cd /data; mkdir projects; cd projects; mkdir gitterstartscanner
 #COPY settings.js /data/projects/gitterstartscanner/settings.js
-#COPY scanner_cred.json /data/projects/gitterstartscanner/scanner_cred.json
+COPY flow_cred.json /data/flows_cred.json
 COPY flow.json /data/flows.json
 #COPY package.json /data/projects/gitterstartscanner/package.json
 #COPY package.json package.json 
