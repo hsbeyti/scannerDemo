@@ -2,22 +2,24 @@
 echo "The number of arguments is: $#"
 
 if [ $# -ne 1 ]; then
-    echo The number of arguments provided is incorrect. Please provide the config file name.
+    echo The number of arguments provided ($#) is incorrect. Please provide the config file name.
     echo usage: ./startAll configDocker
-    echo the  configDocker is a text file that must contain the IP addresses of the PLC  machines, one per line example: 192.168.10.60
+    echo the  configDocker is a text file that must contain the IP addresses of the PLC  machines, one per line for example: 192.168.10.60
     exit 1
 fi
 input=$1
 port=1881
+#to puul the latest version, first  delete the local latest
+docker rmi  hsbeyti/indausobserver:latest
 # starting at port 1881 onward
 while IFS= read -r line
 do
    echo  "IP=$line" > .env
    echo  "port=$port" >>  .env
-   echo  conatiner is now listening to post $port
-   echo  and communicate with CPU IP: $line
+   echo  creating a container listening on port: $port
+   echo  and communicating with the PLC maschine with IP: $line
    docker-compose  -p "cont$line" up  -d
-   sleep 5
+   #generate new port for next container
    let port+=5;
-   echo creating next conatiner
+   echo creating the next container ....
 done < "$input"

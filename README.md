@@ -4,13 +4,13 @@ testscanner
 
 
 This project folder contains all files needed for the project ScannerDemo :
-bashScripts: all necessary scripts to start and stop docker containers on the server (deployments)
+bashScripts: all necessary scripts to start and stop docker containers on the server (deployment server)
 docker-compose: to create one container of the scannerDemo Image
 node-red-source: contains the node red file needed : flow.json, flow_cred.json and settings.js
 
 How to operate?
 
-It communicates with the CPU using OPC UA protocol, it acts as an UPC UA client.
+It communicates with a CPU using OPC UA protocol, it acts as an UPC UA client.
 1- first you move to scannerDemo folder (on the deployment server, for the first time create a new one)
 2- you need to pull into this folder the corresponding docker image form the docker-hub cloud repository  "hsbeyti/indaus", type the command "sudo docker pull hsbeyti/indaus:observer1.x" 
 you need also to have the following files in this folder:
